@@ -8,7 +8,7 @@
       "email" : "apiteam@swagger.io"
     },
     "x-logo": {
-      "url": "https://valuga.nl/wp-content/uploads/2019/05/Valuga_MainLogo-transparent_Logo-Red-1024x418.png",
+      "url": "https://raw.githubusercontent.com/AlxndrB/MyProject/master/Valuga_MainLogo-transparent_Logo-Red-1024x418.png",
       "backgroundColor": "#FFFFFF",
       "altText": "Petstore logo"
     },
