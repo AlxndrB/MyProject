@@ -11,7 +11,7 @@
       "url": "https://redocly.github.io/redoc/petstore-logo.png",
       "backgroundColor": "#FFFFFF",
       "altText": "Petstore logo"
-    }
+    },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
