@@ -1,0 +1,398 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Swagger Petstore",
+    "description" : "This is a sample Petstore server.  You can find\nout more about Swagger at\n[http://swagger.io](http://swagger.io) or on\n[irc.freenode.net, #swagger](http://swagger.io/irc/).\n",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "apiteam@swagger.io"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/AlxndrB/PolicyManager/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "tst.qbe.com/v1",
+    "description" : "Test environment for QBE services"
+  }, {
+    "url" : "api.qbe.com/v1",
+    "description" : "Production environment for QBE services"
+  } ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "company",
+    "description" : "Operations about companies"
+  }, {
+    "name" : "coverage",
+    "description" : "Operations about coverages"
+  } ],
+  "paths" : {
+    "/company/findcompany" : {
+      "get" : {
+        "tags" : [ "company" ],
+        "summary" : "Find a company based on company attributes",
+        "parameters" : [ {
+          "name" : "Company",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Company"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Succes",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Company"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company/findcompany{CompanyId}" : {
+      "get" : {
+        "tags" : [ "company" ],
+        "summary" : "Find company attributes based on the unique Id",
+        "parameters" : [ {
+          "name" : "CompanyId",
+          "in" : "path",
+          "description" : "Unique identifier provided by QBE",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Company"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coverages/{CompanyId}" : {
+      "get" : {
+        "tags" : [ "coverage" ],
+        "summary" : "Get all coverages for a particular company",
+        "parameters" : [ {
+          "name" : "CompanyId",
+          "in" : "path",
+          "description" : "Unique **company** identifier provided by QBE",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Coverage"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No company with that Id"
+          }
+        }
+      }
+    },
+    "/coverage/" : {
+      "put" : {
+        "tags" : [ "coverage" ],
+        "summary" : "Request an update/change in coverage",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Coverage"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Coverage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "coverage" ],
+        "summary" : "Request a  new coverage",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Coverage"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Coverage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coverage/Cancel/{coverageId}" : {
+      "put" : {
+        "tags" : [ "coverage" ],
+        "summary" : "Cancel the coverage",
+        "parameters" : [ {
+          "name" : "coverageId",
+          "in" : "path",
+          "description" : "Unique **coverageId** identifier provided by QBE",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No coverage with that Id"
+          }
+        }
+      }
+    },
+    "/coverage/portfolio" : {
+      "get" : {
+        "tags" : [ "coverage" ],
+        "summary" : "Gets the portfolio",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Company" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Must be unique per company"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "registrationNumber" : {
+            "type" : "array",
+            "description" : "List of registration numbers for this company",
+            "items" : {
+              "$ref" : "#/components/schemas/Company_registrationNumber"
+            }
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "rating" : {
+            "type" : "integer"
+          },
+          "zipcode" : {
+            "type" : "string"
+          },
+          "countrycode" : {
+            "type" : "string",
+            "description" : "ISO 3166-1 alpha-3"
+          }
+        }
+      },
+      "Coverage" : {
+        "required" : [ "companyId", "policyId", "type", "uid" ],
+        "type" : "object",
+        "properties" : {
+          "uid" : {
+            "type" : "string",
+            "description" : "Must be unique per cover",
+            "default" : "'0'"
+          },
+          "companyId" : {
+            "type" : "integer",
+            "description" : "Company identifier provided by QBE"
+          },
+          "policyId" : {
+            "type" : "string",
+            "description" : "Policy identifier"
+          },
+          "type" : {
+            "type" : "string",
+            "default" : "'Credit limit'",
+            "enum" : [ "Credit limit", "Rating limit", "Credit check" ]
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status for the coverage",
+            "default" : "'Accepted'",
+            "enum" : [ "Accepted", "Declined", "Pending" ]
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "Start date of the cover",
+            "format" : "date",
+            "example" : "1990-09-25"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "Up to and including date of the cover",
+            "format" : "date",
+            "example" : "2019-09-25"
+          },
+          "requested" : {
+            "type" : "number",
+            "description" : "Requested amount for coverage",
+            "example" : 12345.67
+          },
+          "received" : {
+            "type" : "number",
+            "description" : "Received amount for coverage",
+            "example" : 12345.67
+          },
+          "comments" : {
+            "type" : "array",
+            "description" : "Underwriter comments",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "decisionCodes" : {
+            "type" : "array",
+            "description" : "Decisioncodes of the cover",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "enum" : [ "Accepted", "Declined", "Pending" ]
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "companies" : {
+            "type" : "array",
+            "description" : "Companies list with coverages",
+            "items" : {
+              "$ref" : "#/components/schemas/Company"
+            }
+          },
+          "coverages" : {
+            "type" : "array",
+            "description" : "Coverages",
+            "items" : {
+              "$ref" : "#/components/schemas/Coverage"
+            }
+          }
+        }
+      },
+      "Company_registrationNumber" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "example" : "VAT BE"
+          },
+          "Number" : {
+            "type" : "string",
+            "example" : "0690.537.456"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "UnauthorizedError" : {
+        "description" : "Authentication information is missing or invalid",
+        "headers" : {
+          "WWW_Authenticate" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies" : {
+      "Coverage" : {
+        "description" : "Coverage item. If there is already a cover active it should try to request an update/change of the active cover",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Coverage"
+            }
+          }
+        },
+        "required" : true
+      }
+    }
+  }
+}
